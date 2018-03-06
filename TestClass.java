@@ -1,13 +1,18 @@
+//Blake Cannoe
+//Ester Aguilera
+//Mimi
 import javax.swing.JOptionPane;
+import java.util.*;
 public class TestClass {
 
 	public static void main(String[] args) {
 	
 		
 		char choice = 0;
-		
-		
-		do {
+		ArrayList<String> playerArray = new ArrayList<String>();
+		ArrayList<String> slottyArray = new ArrayList<String>();
+		//This is a good menu
+			do {
 			String menu;
 			String message = "A. Add a player.\n";
 			message += "B. Add a slot machine.\n";
@@ -17,35 +22,42 @@ public class TestClass {
 			menu = JOptionPane.showInputDialog(message, "Enter your selection.");
 			choice = menu.toUpperCase().charAt(0);
 		
+			
+		
 			switch(choice) {
-			case 'A':
+			case 'A'://Adds a player
 				
 				
 				break;
 				
 				
-			case 'B':
+			case 'B'://adds a slot machine
 				
 				
 				break;
 				
-			case 'C':
+			case 'C'://allows user to play slot machine
 				
 				
 				break;
 				
 			
-			case 'D':
+			case 'D'://view player balance
 				
 				
 				break;
 				
-			case 'Q':
+			case 'Q'://quit input
 			
 				JOptionPane.showMessageDialog(null, "Don't come back.");
 				
-			default:
+				break;
+			
+			default://bad input
+				
 				JOptionPane.showMessageDialog(null, "Invalid");
+				
+				break;
 			}
 			
 		
