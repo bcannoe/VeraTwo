@@ -1,0 +1,81 @@
+// ************************************************************
+//Name: Mimi
+// ************************************************************
+package projectVera2;
+import java.util.*;
+public class Player {
+	
+
+
+
+			 private String name;
+			 private int age;
+			 private int dob;
+			 private double moneyBalence; 
+
+			 public Player(String name, int age, int dob, double moneyBalence) {
+			 	super();
+			 	this.name = name;
+			 	this.age = age; 
+			 	this.dob = dob; 
+			 }
+
+			 public int getDob() {
+				return dob;
+			}
+
+			public void setDob(int dob) {
+				 
+
+				this.dob = dob;
+			}
+
+			public double getMoneyBalence() {
+				return moneyBalence;
+			}
+
+			public void setMoneyBalence(double moneyBalence) {
+				this.moneyBalence = moneyBalence;
+			}
+
+			public String getName() {
+			 	return name;
+			 }
+
+			 public int getAge() {
+				return age;
+			}
+
+			public void setAge(int age) {
+				this.age = age;
+			}
+
+			public void setName(String name) {
+			 	this.name = name.toUpperCase();
+			 }
+
+			 @Override
+			 public String toString() {
+			 	return "Name: " + name + " \n" + "Age: " + age + " \n" + "Date of birth:" + dob + "Money Balence:" + moneyBalence;
+			 	
+			 } // end toString 
+			  public static Player makePlayer(){
+			 	 Person result; 
+			 	 String tempName; 
+			 	 int tempAge; 
+         int tempDob;
+         double tempBalence;
+			 	 Scanner input = new Scanner(System.in); 
+			 	 System.out.print("Enter a Player's name: "); 
+			 	 tempName = input.nextLine();
+			 	System.out.print("Enter the players's age: "); 
+			 	 tempAge = input.nextInt();
+			 	System.out.print("Enter the player's date of birth as mmddyyyy: "); // which this dob should be it's own class
+			 	 tempDob = input.nextInt();
+         System.out.print("Enter the players's current balence: "); 
+			 	 tempBalence = input.nextDouble();
+			 	 result = new Person(tempName, tempAge, tempDob, tempBalence); 
+			 	 
+			 	 return result; 
+			  }
+}
