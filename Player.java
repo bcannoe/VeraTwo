@@ -1,9 +1,10 @@
 import javax.swing.JOptionPane;
 
 public class Player {
-	private Name name;
-	private Date dob;
 	
+	// local variables 
+	private Name name; //  reference variable of object
+	private Date dob; // reference variable of object
 	private double moneyBalance;
 	
 	public Player(Name name, Date dob, double moneyBalance) {
@@ -23,6 +24,13 @@ public class Player {
 	}
 
 	public void setName(Name name) {
+		// how do I invoke the methods of the Name class and pass them into here so that the player's
+		// name is set inside of player by referencing name 
+		Name playerName = new Name();
+		playerName.setFirst("");
+		playerName.setInitial(' ');
+		playerName.setLast("");
+		
 		this.name = name;
 	}
 
@@ -39,9 +47,7 @@ public class Player {
 	}
 
 	public void setMoneyBalance(double moneyBalance) {
-		moneyBalance = Double.parseDouble(JOptionPane.showInputDialog("Enter your money balance"));
-		
-		
+		//moneyBalance = Double.parseDouble(JOptionPane.showInputDialog("Enter your money balance"));	
 		this.moneyBalance = moneyBalance;
 	}
 
@@ -52,12 +58,16 @@ public class Player {
 		return result;
 	}
 	
-	//public static Player createPlayer() {
-		
-		
-		
-		
-	//}
+//	public static Player createPlayer() {
+//		
+//		/* The purpose of this method is to collect all the values that create a Player, put them into
+//		 * a player object
+//		 */
+//		Player testResult;
+//		testResult = setDob();
+//		Player result = null;
+//		return result; // result here is an object of type player: should include every element of a player
+//	}
 	
 	
 	

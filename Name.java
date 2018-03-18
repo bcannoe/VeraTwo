@@ -5,6 +5,10 @@ public class Name
 	private char initial;
 	private String last;
 	
+	public Name()
+	{
+		// no args constructor
+	}
 	public Name(String fir, char init, String las)
 	{
 		this.first = fir;
@@ -14,7 +18,6 @@ public class Name
 	public void setFirst(String fir)
 	{
 		fir = JOptionPane.showInputDialog("Enter your first name");
-		
 		this.first = fir;
 	}
 	public String getFirst()
