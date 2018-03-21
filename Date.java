@@ -29,7 +29,7 @@ public class Date
 
 	public void setYear(int year) 
 	{
-		year = Integer.parseInt(JOptionPane.showInputDialog("Enter year:"));// we will use honor system for the year for now
+		year = Integer.parseInt(JOptionPane.showInputDialog("Enter year:"));
 		if(year < 1880)
 		{
 			JOptionPane.showMessageDialog(null, "Invalid Entry"); //  oldest age we accept is 138 
@@ -74,9 +74,9 @@ public class Date
 	{
 		day = Integer.parseInt(JOptionPane.showInputDialog("Enter day:"));
 		
-		boolean error = true;// I don't want to make some overly complex while loop at the bottom there so this is the best option I can think of
+		boolean error = true; // boolean to end while loop
 		
-		//I haven't tested this either but I'm fairly certain that something is wrong with it, but I will get to it.
+	
 		//**This do-while loop validates user's day entry making sure it is valid for the corresponding month it is paired with**
 		do {
 			if(day < 1 || day > 31) {
@@ -87,7 +87,7 @@ public class Date
 				if (year % 4 == 0 && day < 29)
 				day = Integer.parseInt(JOptionPane.showInputDialog("Invalid entry for month of February: ....."));
 			}
-			else if((month == 4 || month == 6 || month == 9 || month == 11) && (day < 1 || day > 30)) {//I am not sure if this is how this works but it looks right
+			else if((month == 4 || month == 6 || month == 9 || month == 11) && (day < 1 || day > 30)) {
 				day = Integer.parseInt(JOptionPane.showInputDialog("please enter a valid day between 1 and 30"));// 
 			} else {
 				error = false;
