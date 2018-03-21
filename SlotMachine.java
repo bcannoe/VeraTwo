@@ -1,5 +1,4 @@
 import javax.swing.JOptionPane;
-
 public class SlotMachine {
 	private String nameOfSlot;
 	private double currentSlotBalance;
@@ -8,7 +7,14 @@ public class SlotMachine {
 	private int bigWinFrequency; // jackpot occurs once every __ times
 	private int lilWinFrequency; // regular win occurs once every __ times
 	
-	// Constructors ---------------------------------------------------------------------------------------------------------
+// Constructors ===================================================================================================================
+
+	public SlotMachine() 
+	{
+		// not sure if we really need this no args constructor
+		
+	}
+	
 	public SlotMachine(String nameOfSlot, double currentSlotBalance, double bigPayout, double lilPayout, 
 			int bigWinFrequency, int lilWinFrequency) 
 	{
@@ -20,13 +26,8 @@ public class SlotMachine {
 		setBigWinFrequency(bigWinFrequency);
 		setLilWinFrequency(lilWinFrequency);
 	}
-	public SlotMachine() 
-	{
-		// not sure if we really need this no args constructor
-		
-	}
 	
-// Setters & Getters --------------------------------------------------------------------------------------------------------
+// Setters & Getters ===============================================================================================================
 	
 	public String getNameOfSlot() 
 	{
@@ -88,6 +89,7 @@ public class SlotMachine {
 		this.lilWinFrequency = lilWinFrequency;
 	}
 
+// toString method ========================================================================================================================================
 	
 	public String toString() 
 	{
@@ -98,7 +100,7 @@ public class SlotMachine {
 		return result;
 	}
 	
-// addSlotMachine method ==============================================================
+// addSlotMachine method ==================================================================================================================================
 	
 	public static SlotMachine addSlotMachine()
 	{
