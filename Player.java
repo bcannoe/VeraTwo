@@ -13,11 +13,11 @@ public class Player {
 		
 		
 	}
-	public Player(Name name, Date dob, double moneyBalance) 
+	public Player(Date dob, Name name, double moneyBalance) 
 	{
 		super();
-		setName(name);
 		setDob(dob);
+		setName(name);
 		setMoneyBalance(moneyBalance);
 	}
 	
@@ -30,8 +30,7 @@ public class Player {
 	
 	public void setName(Name name) // **********Not sure if this is properly filled out
 	{
-		// how do I invoke the methods of the Name class and pass them into here so that the player's
-		// name is set inside of player by referencing name 
+		// this creates a name object in the setName method within player
 		name = new Name();
 		name.setFirst("");
 		name.setInitial(' ');
@@ -47,6 +46,11 @@ public class Player {
 
 	public void setDob(Date dob) 
 	{
+		dob = new Date();
+		dob.setYear(0);
+		dob.setMonth(0);
+		dob.setDay(0);
+		
 		this.dob = dob;
 	}
 
@@ -73,37 +77,28 @@ public class Player {
 // addPlayer method =====================================================================================================================================
 	
 
-	// In addPlayer method, objects of type Date & Name are created to populate the player object 
+	/* In addPlayer method, nothing is passed & an object called 'result' of type Player is returned;
+	 * objects of type Date & Name are created to populate the player object & the user is also prompted for the players balance;
+	 * when the dob & name objects are created, the user is prompted for the individual values necessary to populate them;
+	 */
 	public static Player addPlayer()
 	{
 		// reference variables declared & initialized
 		Player result;
 		Name tempPlayerName = null;
 		Date tempDob = null;
-		int day = 0, month = 0, year = 0;
-		Double tempPlayerBalance = null;
+		//int day = 0, month = 0, year = 0;
+		double tempPlayerBalance = 0;
 		
-		JOptionPane.showMessageDialog(null, "Inside 'addPlayer' checkpoint 1"); // CHECKPOINT 1
+		JOptionPane.showMessageDialog(null, "Before any objects are created"); // CHECKPOINT 1
 		
-		tempDob = new Date(day, month, year);
-		tempPlayerName = new Name(" ", ' ', " "); // this prompts user for input
+		// when a Player is created, since a player and date object are created within the setters of Player, the user is prompted for everything here except playerbalance
+		result = new Player(tempDob, tempPlayerName, tempPlayerBalance);
 		
-		JOptionPane.showMessageDialog(null, "Inside 'addPlayer' checkpoint 2 -- TEMPDOB: " + tempDob + " TEMPPLAYERNAME: " + tempPlayerName); // CHECKPOINT 2
 		
-		// populating variables with values
-//		tempPlayerName.setFirst(" ");
-//		tempPlayerName.setInitial(' '); // 'initial' as in middle name initial
-//		tempPlayerName.setLast(" ");
-		
-//		tempDob.setDay(0);
-//		tempDob.setMonth(0);
-//		tempDob.setYear(0);
-
 		tempPlayerBalance = Double.parseDouble(JOptionPane.showInputDialog(null, "Enter player's balance:"));
-	
-		result = new Player(tempPlayerName, tempDob, tempPlayerBalance);
 		
-		JOptionPane.showMessageDialog(null, "Inside 'addPlayer' checkpoint 3 -- RESULT: " + result); // CHECKPOINT 1 // CHECKPOINT 3
+		JOptionPane.showMessageDialog(null, "RESULT: " + result); // CHECKPOINT 3
 		
 		return result;
 	}

@@ -14,35 +14,13 @@ public class Date
 	
 	public Date(int month, int day, int year) 
 	{
-		super();
+		setYear(year); // user should be asked for the year they were born FIRST to check whether it is a leap year or not
+		setMonth(month); // then, the user should be asked for the month next because depending on the month, the day they can choose is limited to certain numbers
 		setDay(day);
-		setMonth(month);
-		setYear(year);
+		
 	}
 	
 // Setters & Getters ====================================================================================================================================================
-	
-	public int getYear() 
-	{
-		return year;
-	}
-
-	public void setYear(int year) 
-	{
-		year = Integer.parseInt(JOptionPane.showInputDialog("Enter year:"));
-		if(year < 1880)
-		{
-			JOptionPane.showMessageDialog(null, "Invalid Entry"); //  oldest age we accept is 138 
-		}
-		if(year > 2000)
-		{
-			JOptionPane.showMessageDialog(null, "Must be 18+ years old to play");
-		}
-			
-			this.year = year;
-	
-	
-	}
 
 	public int getMonth() 
 	{
@@ -51,11 +29,11 @@ public class Date
 
 	public void setMonth(int month) 
 	{
-		month = Integer.parseInt(JOptionPane.showInputDialog("Enter month (01 - 12 ONLY):"));
-		//I haven't tested this but I'm fairly confident that it works.
-		//** This do-while loop validates the user's month entry**
+		month = Integer.parseInt(JOptionPane.showInputDialog("Enter birth month (01 - 12 ONLY):"));
+		//**This do-while loop validates the user's month entry**
 		do {
-			if(month < 1 || month > 12) {
+			if(month < 1 || month > 12) 
+			{
 				month = Integer.parseInt(JOptionPane.showInputDialog("Invalid entry, enter number between 01 and 12"));
 			}
 		} while(month < 1 || month > 12);
@@ -63,39 +41,64 @@ public class Date
 		this.month = month;
 	}
 
-
 	public int getDay() 
 	{
 		return day;
 	}
 
-
 	public void setDay(int day) 
 	{
-		day = Integer.parseInt(JOptionPane.showInputDialog("Enter day:"));
+		day = Integer.parseInt(JOptionPane.showInputDialog("Enter birth day:"));
 		
-		boolean error = true; // boolean to end while loop
+		boolean error = true;
 		
 	
 		//**This do-while loop validates user's day entry making sure it is valid for the corresponding month it is paired with**
 		do {
-			if(day < 1 || day > 31) {
-				day = Integer.parseInt(JOptionPane.showInputDialog("Invalid entry, please enter a day between 1 and 31"));
-			}
-			else if (month == 2 && day > 0) 
+			if(day < 1 || day > 31) 
 			{
-				if (year % 4 == 0 && day < 29)
-				day = Integer.parseInt(JOptionPane.showInputDialog("Invalid entry for month of February: ....."));
+				day = Integer.parseInt(JOptionPane.showInputDialog("Invalid entry, please enter day between 01 and 31"));
 			}
-			else if((month == 4 || month == 6 || month == 9 || month == 11) && (day < 1 || day > 30)) {
-				day = Integer.parseInt(JOptionPane.showInputDialog("please enter a valid day between 1 and 30"));// 
-			} else {
+			else if (month == 2 && day > 29) // if the month is February & the day is greater than 0, check next condition...
+			{
+				if ((!(year % 4 == 0) && day > 29) || (year % 4 == 0 && day > 28)) 
+					day = Integer.parseInt(JOptionPane.showInputDialog("Invalid entry for month of February"));
+			}
+			else if((month == 4 || month == 6 || month == 9 || month == 11) && (day < 1 || day > 30)) // for the following months, the entered day must not exceed 30
+			{	//I am not sure if this is how this works but it looks right
+				day = Integer.parseInt(JOptionPane.showInputDialog("Invalid entry, please enter day between 01 and 30"));
+			} 
+			else 
+			{
 				error = false;
-			}
-			
+			}	
 			
 		}while(error);
 		this.day = day;
+	}
+	
+	public int getYear() 
+	{
+		return year;
+	}
+
+	public void setYear(int year) 
+	{
+		year = Integer.parseInt(JOptionPane.showInputDialog("Enter year of birth:"));
+		if(year < 1880)
+		{
+			JOptionPane.showMessageDialog(null, "Invalid Entry"); // oldest age we accept is 138 -- oldest person ever recorded to live was 122
+			year = Integer.parseInt(JOptionPane.showInputDialog("Enter year of birth:"));
+		}
+		if(year > 2000)
+		{
+			JOptionPane.showMessageDialog(null, "Must be 18+ years old to play"); // assuming the gambling age in this hypothetical is 18+
+			// can we exit user out of program from here ??
+			year = Integer.parseInt(JOptionPane.showInputDialog("Enter year of birth:"));
+			
+		}
+			
+			this.year = year;	
 	}
 	
 // toString method ===================================================================================================================================================
@@ -106,7 +109,5 @@ public class Date
 		result = month + " / " + day + " / " + year;	
 		return result;
 	}
-	
-
 	
 }

@@ -32,24 +32,21 @@ public class TestClass {
 		//This is a good menu
 			do {
 			String menu;
-			String message = "A. Add a player.\n";
-			message += "B. Add a slot machine.\n";
+			String message = "A. Add Player.\n";
+			message += "B. Add Slot Machine.\n";
 			message += "C. Play Slots.\n";
 			message += "D. View money balance\n";
 			message += "Q. Quit.\n";
-			menu = JOptionPane.showInputDialog(message, "Enter your selection.");
+			menu = JOptionPane.showInputDialog(message, "Enter your selection");
 			choice = menu.toUpperCase().charAt(0);
 		
 			
 			switch(choice) {
 			case 'A'://Adds a player
 				
-				JOptionPane.showMessageDialog(null, "Inside 'switch case: A' first line of code"); // CHECKPOINT 1
 				Player player = Player.addPlayer();
-				JOptionPane.showMessageDialog(null, "Inside 'switch case A' AFTER 'addplayer' has been called & result returned -- player: " + player); // CHECKPOINT 2
 				playerArray.add(player);
-				
-				JOptionPane.showMessageDialog(null, "playerArray: " + playerArray); // CHECKPOINT 3
+				JOptionPane.showMessageDialog(null, "playerArray:" + playerArray); // TESTCODE
 				break;
 			
 			case 'B'://adds a slot machine
@@ -70,36 +67,36 @@ public class TestClass {
 				selectedPlayer = selectPlayer(playerArray);
 				JOptionPane.showMessageDialog(null, "You have selected " + selectedPlayer); //test code
 				
-//				// selected slot & selected player are passed into playSlots method
-//				int userPlays = 0; // userPlayers accounts for # of players the user has made in order to 
-//				int playAgain = 0;
-//				while(selectedPlayer.getMoneyBalance() >= 1 && playAgain == 1)
-//				{
-//					/* This while loop validates the selected players money balance, if they don't have at least 1 dollar they can not play;
-//					 * Once that has been validated, the method 'playSlots' is invoked, the selectedSlot, selectedPlayer objects are passed & the userPlays
-//					 * int is passed; the value returned should be the userPlays amount which will override any values in userPlays and replace them;
-//					 * Then, the user will be prompted if they wish to play again with the same slot machine & player, if yes, once again their moneyBalance
-//					 * is validated & playSlots is invoked once again passing through it the necessary updated slot & player info as well the updated userPlays;
-//					 */
-//					System.out.println("inside FIRST while loop -- money balance: " + selectedPlayer.getMoneyBalance()); // test code
-//					userPlays = playSlots(selectedSlot, selectedPlayer, userPlays); // playSlots method should return the result of the play & the players balance
-//					System.out.println("userPlays: " + userPlays + "selectedPlayer's money balance: " + selectedPlayer.getMoneyBalance()); // test code
-//					playAgain = Integer.parseInt(JOptionPane.showInputDialog("Play again? (1 for Yes, 0 for No)"));
-//					if(playAgain == 1 && selectedPlayer.getMoneyBalance() >= 1)
-//					{
-//						userPlays = playSlots(selectedSlot, selectedPlayer, userPlays); // playSlots method should return the result of the play & the players balance
-//						playAgain = Integer.parseInt(JOptionPane.showInputDialog("Play again? (1 for Yes, 0 for No)"));
-//					}
-//					else if(playAgain == 0)
-//					{
-//						break;
-//					}
-//					else
-//					{
-//						System.out.println("Invalid Entry");
-//					}
-//						
-//				}
+				// selected slot & selected player are passed into playSlots method
+				int userPlays = 0; // userPlayers accounts for # of players the user has made in order to 
+				int playAgain = 0;
+				while(selectedPlayer.getMoneyBalance() >= 1 && playAgain == 1)
+				{
+					/* This while loop validates the selected players money balance, if they don't have at least 1 dollar they can not play;
+					 * Once that has been validated, the method 'playSlots' is invoked, the selectedSlot, selectedPlayer objects are passed & the userPlays
+					 * int is passed; the value returned should be the userPlays amount which will override any values in userPlays and replace them;
+					 * Then, the user will be prompted if they wish to play again with the same slot machine & player, if yes, once again their moneyBalance
+					 * is validated & playSlots is invoked once again passing through it the necessary updated slot & player info as well the updated userPlays;
+					 */
+					System.out.println("inside FIRST while loop -- money balance: " + selectedPlayer.getMoneyBalance()); // test code
+					userPlays = playSlots(selectedSlot, selectedPlayer, userPlays); // playSlots method should return the result of the play & the players balance
+					System.out.println("userPlays: " + userPlays + "selectedPlayer's money balance: " + selectedPlayer.getMoneyBalance()); // test code
+					playAgain = Integer.parseInt(JOptionPane.showInputDialog("Play again? (1 for Yes, 0 for No)"));
+					if(playAgain == 1 && selectedPlayer.getMoneyBalance() >= 1)
+					{
+						userPlays = playSlots(selectedSlot, selectedPlayer, userPlays); // playSlots method should return the result of the play & the players balance
+						playAgain = Integer.parseInt(JOptionPane.showInputDialog("Play again? (1 for Yes, 0 for No)"));
+					}
+					else if(playAgain == 0)
+					{
+						break;
+					}
+					else
+					{
+						System.out.println("Invalid Entry");
+					}
+						
+				}
 				break;
 				
 			case 'D'://view player balance
@@ -135,10 +132,10 @@ public class TestClass {
 		// For-Loop for adding slot names to menu:
 		for(int i = 0; i < playerArray.size(); i++)
 		{
-			menuList += "\n" + playerArray.get(i).getName(); // not sure if this will work
+			menuList += "\n" + playerArray.get(i).getName();
 		}
 		
-		// User Prompt: 
+		// User Prompt to enter the name of a player: (only players that have been created will appear)  
 		userChoice = JOptionPane.showInputDialog(null, "Enter a Slot Machine from list: "
 				+ "(MUST type in full name of slot machine as is) " + 
 				"\n======================================================================\n" + menuList);
@@ -197,7 +194,7 @@ public class TestClass {
 			menuList += "\n" + slotArray.get(i).getNameOfSlot();
 		}
 		
-		// User Prompt: 
+		// User Prompt to enter the name of a slot machine: (only slot machines that have been created will appear 
 		userChoice = JOptionPane.showInputDialog(null, "Enter a Slot Machine from list: "
 				+ "(MUST type in full name of slot machine as is) " + 
 				"\n======================================================================\n" + menuList);
@@ -233,7 +230,7 @@ public class TestClass {
 				"\n========================================\n" + menuList);
 		} // end of while
 		
-	return result;
+		return result;
 	}
 
 // playSlots Method ===========================================================================================================================================
@@ -244,31 +241,38 @@ public class TestClass {
 		double slotsBalance = 0; // slot machines money balance within the playSlots method
 		plays++;
 		
-	if(plays % userSelectedSlot.getBigWinFrequency() == 0)
-	{
-		System.out.println("Inside jackpot if statement"); // testcode
-		playersBalance = userSelectedPlayer.getMoneyBalance() - plays + userSelectedSlot.getBigPayout();
-		userSelectedPlayer.setMoneyBalance(playersBalance); // updating the players NEW balance
-		slotsBalance = userSelectedSlot.getCurrentSlotBalance() + plays - userSelectedSlot.getBigPayout();
-		userSelectedSlot.setCurrentSlotBalance(slotsBalance); // updating the slots NEW balance
-		JOptionPane.showMessageDialog(null, "CONGRATULATIONS!  YOU HIT THE JACKPOT!\n" + userSelectedPlayer.getName() + 
+		/* If the number of times the user has played can be evenly divided into either of the win frequencies,
+		 * the user has won & the code within if statement will run;
+		 */
+		
+		if(plays % userSelectedSlot.getBigWinFrequency() == 0)
+		{
+			System.out.println("Inside jackpot if statement"); // testcode
+			playersBalance = userSelectedPlayer.getMoneyBalance() - plays + userSelectedSlot.getBigPayout();
+			userSelectedPlayer.setMoneyBalance(playersBalance); // updating the players NEW balance
+			slotsBalance = userSelectedSlot.getCurrentSlotBalance() + plays - userSelectedSlot.getBigPayout();
+			userSelectedSlot.setCurrentSlotBalance(slotsBalance); // updating the slots NEW balance
+			JOptionPane.showMessageDialog(null, "CONGRATULATIONS!  YOU HIT THE JACKPOT!\n" + userSelectedPlayer.getName() + 
 				" has won " + userSelectedSlot.getBigPayout() 
 				+ "\n Your current balance is: " 
 				+ playersBalance);
 		
-	}
-	if(plays % userSelectedSlot.getLilWinFrequency() == 0)
-	{
-		System.out.println("Inside regular win if statement -- selected user's money balance: " + userSelectedPlayer.getMoneyBalance()); //testcode
-		System.out.println("selected slot's lil payout: " + userSelectedSlot.getLilPayout()); //testcode
-		playersBalance = userSelectedPlayer.getMoneyBalance() - plays + userSelectedSlot.getLilPayout();
-		userSelectedPlayer.setMoneyBalance(playersBalance); // updating the players NEW balance
-		slotsBalance = userSelectedSlot.getCurrentSlotBalance() + plays - userSelectedSlot.getBigPayout();
-		userSelectedSlot.setCurrentSlotBalance(slotsBalance); // updating the slots NEW balance
-		// JOp message
-	}
+		}
+		if(plays % userSelectedSlot.getLilWinFrequency() == 0)
+		{
+			System.out.println("Inside regular win if statement -- selected user's money balance: " + userSelectedPlayer.getMoneyBalance()); //testcode
+			System.out.println("selected slot's lil payout: " + userSelectedSlot.getLilPayout()); //testcode
+			playersBalance = userSelectedPlayer.getMoneyBalance() - plays + userSelectedSlot.getLilPayout();
+			userSelectedPlayer.setMoneyBalance(playersBalance); // updating the players NEW balance
+			slotsBalance = userSelectedSlot.getCurrentSlotBalance() + plays - userSelectedSlot.getBigPayout();
+			userSelectedSlot.setCurrentSlotBalance(slotsBalance); // updating the slots NEW balance
+			JOptionPane.showMessageDialog(null, "CONGRATULATIONS!  YOU HAVE WON!\n" + userSelectedPlayer.getName() + 
+					" has won " + userSelectedSlot.getLilPayout() 
+					+ "\n Your current balance is: " 
+					+ playersBalance);
+		}
 		
-		return plays; // returns plays to keep track of how many plays the selected users has so far
+		return plays; // returns plays to keep track of how many plays the selected users has so far (REMEMBER all data is cleared once the user exits the program in any way)
 	}
 	
 } // end of main class
