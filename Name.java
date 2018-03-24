@@ -31,6 +31,7 @@ public class Name
 	public void setInitial(char initial)
 	{
 		String input;
+
 		input = JOptionPane.showInputDialog("Enter middle name initial (enter space if there is no middle initial)");
 		initial = input.charAt(0);
 		this.initial = initial;

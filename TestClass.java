@@ -169,8 +169,8 @@ public class TestClass {
 			}
 			
 		JOptionPane.showMessageDialog(null, "Your choice was invalid, please try again");
-		userChoice = JOptionPane.showInputDialog(null, "Enter a Slot Machine from list: "
-				+ "(MUST type in full name of slot machine as is) " + 
+		userChoice = JOptionPane.showInputDialog(null, "Enter a Player from list: " //you forgot to change this earlier
+				+ "(MUST type in full name of player as is) " + 
 				"\n========================================\n" + menuList);
 		} // end of while
 		

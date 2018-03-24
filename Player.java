@@ -61,7 +61,8 @@ public class Player {
 
 	public void setMoneyBalance(double moneyBalance) 
 	{
-		//moneyBalance = Double.parseDouble(JOptionPane.showInputDialog("Enter your money balance"));	// not sure if I should add this ??
+		//this needs to be up here result in addPlayer will not take the one under it
+		moneyBalance = Double.parseDouble(JOptionPane.showInputDialog("Enter your money balance"));	// not sure if I should add this ??
 		this.moneyBalance = moneyBalance;
 	}
 	
@@ -96,7 +97,7 @@ public class Player {
 		result = new Player(tempDob, tempPlayerName, tempPlayerBalance);
 		
 		
-		tempPlayerBalance = Double.parseDouble(JOptionPane.showInputDialog(null, "Enter player's balance:"));
+	
 		
 		JOptionPane.showMessageDialog(null, "RESULT: " + result); // CHECKPOINT 3
 		
