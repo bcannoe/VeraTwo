@@ -1,5 +1,6 @@
 import javax.swing.JOptionPane;
 public class SlotMachine {
+	
 	private String nameOfSlot;
 	private double currentSlotBalance;
 	private double bigPayout; // jackpot win amount is __
@@ -11,7 +12,7 @@ public class SlotMachine {
 
 	public SlotMachine() 
 	{
-		// not sure if we really need this no args constructor
+		
 		
 	}
 	

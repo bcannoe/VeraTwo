@@ -3,10 +3,10 @@
  *Program Purpose:
  *Program Menu:
 	Option A: Create a Player
-	- can create up to 50 Players
-	- prompt user for a Name, DOB and money balance
+	- can create up to 50 Players (51 including Aunt Vera)
+	- prompt user for a DOB, name and money balance
 	Option B: Create a Slot Machine
-	- can create up to 50 Slot Machines
+	- can create up to 50 Slot Machines (47 after the 3 premade machines)
 	- prompt user for Name, money balance (of slot machine),
 	  win frequency of jackpot & regular win ( ex: "win will occur once every __ times")
 	  and jackpot & regular win payout
@@ -21,13 +21,32 @@
  */
 import javax.swing.JOptionPane;
 import java.util.*;
-public class TestClass {
-
-	public static void main(String[] args) {
-	
+public class TestClass 
+{
+	public static void main(String[] args) 
+	{	
 		char choice = 0;
+		
+		// Player & Slot Machine array lists:
 		ArrayList<Player>playerArray = new ArrayList<Player>(50);
 		ArrayList<SlotMachine> slottyArray = new ArrayList<SlotMachine>(50);
+	
+		// PRE-MADE VERA PLAYER
+		Name verasName = new Name("Aunt", 'Y', "Vera");
+		Date verasDob = new Date(01, 01, 1975);
+		Player vera = new Player(verasDob, verasName, 100000);
+		playerArray.add(vera);
+		
+		// PRE-MADE SLOT MACHINES
+		// Parameter values order: nameOfSlot, currentSlotBalance, bigPayout, lilPayout, bigWinFrequency, lilWinFrequency 
+		SlotMachine luckySeven = new SlotMachine("Lucky 7", 10000, 2000, 5, 10000, 10);
+		SlotMachine luckyLotto = new SlotMachine("Lucky Lotto", 95000, 7000, 25, 100000, 50);
+		SlotMachine purplePeopleEater = new SlotMachine("Purple People Eater", 1000, 40, 2, 50, 5);
+		SlotMachine easyWinTest = new SlotMachine("Easy Win Boi", 100000, 100, 10.50, 5, 2); // TESTCODE
+		slottyArray.add(luckySeven);
+		slottyArray.add(luckyLotto);
+		slottyArray.add(purplePeopleEater);
+		slottyArray.add(easyWinTest); // TESTCODE
 
 		//This is a good menu
 			do {
@@ -42,35 +61,46 @@ public class TestClass {
 		
 			
 			switch(choice) {
-			case 'A'://Adds a player
+			case 'A'://ADDS PLAYER
 				
+				// player object is created & populated by invoking 'addPlayer' method within Player class which returns player object
 				Player player = Player.addPlayer();
+				// That player is then added to the playerArray [where all user created players are held + pre-made Vera player]
 				playerArray.add(player);
 				JOptionPane.showMessageDialog(null, "playerArray:" + playerArray); // TESTCODE
 				break;
 			
-			case 'B'://adds a slot machine
+			case 'B'://ADDS SLOT MACHINE
 				
+				// slotMachine object is created & populated by invoking 'addSlotMachine' method within SlotMachine class which returns slotMachine object
 				SlotMachine slotMachine = SlotMachine.addSlotMachine();
+				// That slotMachine is then added to the slottyArray [where all user created slot machines are held + 3 pre-made slot machines]
 				slottyArray.add(slotMachine);
 				break;
 				
-			case 'C'://allows user to play slot machine
+			case 'C'://PLAYS SLOT MACHINES
 				
-				// selectedSlot object meant to be populated by selected slot returned from 'selectSlot' method
+				// selectedSlot object is created to hold values of the selected slot from 'selectSlot' method
 				SlotMachine selectedSlot = new SlotMachine();
-				selectedSlot = selectSlot(slottyArray); // place returned value from selectSlot method into selectedSlot variable
-				JOptionPane.showMessageDialog(null, "You have selected " + selectedSlot); //test code
+				// 'selectSlot' is called, and slottyArray is passed; the user selected slot is returned
+				selectedSlot = selectSlot(slottyArray);
+				// Test Code
+				JOptionPane.showMessageDialog(null, "You have selected " + selectedSlot); 
 				
-				
-				Player selectedPlayer = new Player();
+				//'selectedPlayer' variable name is declared (at this point however, it is NOT an object, just a name);
+				Player selectedPlayer;
+				//'selectPlayer' is called, and playerArray is passed; the a player the user has selected is returned;
+				// selectedPlayer object is created to hold values of the selected player from 'selectPlayer' method
 				selectedPlayer = selectPlayer(playerArray);
-				JOptionPane.showMessageDialog(null, "You have selected " + selectedPlayer); //test code
+				selectedPlayer = new Player(selectedPlayer.getDob(), selectedPlayer.getName(), selectedPlayer.getMoneyBalance());
+				// Test Code
+				JOptionPane.showMessageDialog(null, "You have selected " + selectedPlayer);
+				
 				
 				// selected slot & selected player are passed into playSlots method
 				int userPlays = 0; // userPlayers accounts for # of players the user has made in order to 
-				int playAgain = 0;
-				while(selectedPlayer.getMoneyBalance() >= 1 && playAgain == 1)
+				int playAgain = 1;
+				while(selectedPlayer.getMoneyBalance() >= 1 && playAgain != 0)
 				{
 					/* This while loop validates the selected players money balance, if they don't have at least 1 dollar they can not play;
 					 * Once that has been validated, the method 'playSlots' is invoked, the selectedSlot, selectedPlayer objects are passed & the userPlays
@@ -78,38 +108,27 @@ public class TestClass {
 					 * Then, the user will be prompted if they wish to play again with the same slot machine & player, if yes, once again their moneyBalance
 					 * is validated & playSlots is invoked once again passing through it the necessary updated slot & player info as well the updated userPlays;
 					 */
-					System.out.println("inside FIRST while loop -- money balance: " + selectedPlayer.getMoneyBalance()); // test code
 					userPlays = playSlots(selectedSlot, selectedPlayer, userPlays); // playSlots method should return the result of the play & the players balance
-					System.out.println("userPlays: " + userPlays + "selectedPlayer's money balance: " + selectedPlayer.getMoneyBalance()); // test code
 					playAgain = Integer.parseInt(JOptionPane.showInputDialog("Play again? (1 for Yes, 0 for No)"));
+					
 					if(playAgain == 1 && selectedPlayer.getMoneyBalance() >= 1)
 					{
 						userPlays = playSlots(selectedSlot, selectedPlayer, userPlays); // playSlots method should return the result of the play & the players balance
 						playAgain = Integer.parseInt(JOptionPane.showInputDialog("Play again? (1 for Yes, 0 for No)"));
 					}
-					else if(playAgain == 0)
-					{
-						break;
-					}
-					else
+					else if(playAgain != 0 && playAgain != 1)
 					{
 						System.out.println("Invalid Entry");
 					}
-						
+				
 				}
 				break;
 				
-			case 'D'://view player balance
-				
-		
-				
-				break;
-				
-			case 'Q'://quit input
+			case 'Q'://QUIT PROGRAM
 				JOptionPane.showMessageDialog(null, "Don't come back.");
 				break;
 			
-			default://bad input
+			default://INVALID ENTRY
 				JOptionPane.showMessageDialog(null, "Invalid");
 				break;
 				
@@ -136,8 +155,8 @@ public class TestClass {
 		}
 		
 		// User Prompt to enter the name of a player: (only players that have been created will appear)  
-		userChoice = JOptionPane.showInputDialog(null, "Enter a Slot Machine from list: "
-				+ "(MUST type in full name of slot machine as is) " + 
+		userChoice = JOptionPane.showInputDialog(null, "Enter a Player from list: "
+				+ "(MUST type in FIRST name of player as is) " + 
 				"\n======================================================================\n" + menuList);
 		
 		boolean invalid = true;
@@ -176,9 +195,6 @@ public class TestClass {
 		
 		return null;
 	}
-	
-	
-	
 	
 // selectSlotMethod ================================================================================================================
 	
@@ -249,27 +265,39 @@ public class TestClass {
 		{
 			System.out.println("Inside jackpot if statement"); // testcode
 			playersBalance = userSelectedPlayer.getMoneyBalance() - plays + userSelectedSlot.getBigPayout();
-			userSelectedPlayer.setMoneyBalance(playersBalance); // updating the players NEW balance
+			
+			System.out.println("Inside regular win if statement -- selected user's money balance: " + playersBalance); //testcode
+			userSelectedPlayer.setMoneyBalance(playersBalance); // updates players NEW balance
+			System.out.println(userSelectedPlayer.getMoneyBalance()); // TESTCODE to verify users new balance has been updated
+			
 			slotsBalance = userSelectedSlot.getCurrentSlotBalance() + plays - userSelectedSlot.getBigPayout();
-			userSelectedSlot.setCurrentSlotBalance(slotsBalance); // updating the slots NEW balance
-			JOptionPane.showMessageDialog(null, "CONGRATULATIONS!  YOU HIT THE JACKPOT!\n" + userSelectedPlayer.getName() + 
-				" has won " + userSelectedSlot.getBigPayout() 
-				+ "\n Your current balance is: " 
-				+ playersBalance);
-		
+			userSelectedSlot.setCurrentSlotBalance(slotsBalance); // updates slot machines NEW balance
+			System.out.println(userSelectedSlot.getCurrentSlotBalance()); // TESTCODE to verify slot machines new balance has been updated
+			
+			JOptionPane.showMessageDialog(null, "CONGRATULATIONS! " + userSelectedPlayer.getName() + "\nYOU HAVE HIT THE JACKPOT AND WON " 
+					+ userSelectedSlot.getBigPayout()  + "!!!\nCurrent Balance: " + playersBalance);
+	
 		}
 		if(plays % userSelectedSlot.getLilWinFrequency() == 0)
 		{
-			System.out.println("Inside regular win if statement -- selected user's money balance: " + userSelectedPlayer.getMoneyBalance()); //testcode
 			System.out.println("selected slot's lil payout: " + userSelectedSlot.getLilPayout()); //testcode
-			playersBalance = userSelectedPlayer.getMoneyBalance() - plays + userSelectedSlot.getLilPayout();
-			userSelectedPlayer.setMoneyBalance(playersBalance); // updating the players NEW balance
+			playersBalance = userSelectedPlayer.getMoneyBalance() - plays + userSelectedSlot.getLilPayout(); 
+			
+			System.out.println("Selected user's money balance: " + playersBalance); //testcode
+			userSelectedPlayer.setMoneyBalance(playersBalance); // updates players NEW balance
+			System.out.println(userSelectedPlayer.getMoneyBalance()); // TESTCODE to verify users new balance has been updated
+			
 			slotsBalance = userSelectedSlot.getCurrentSlotBalance() + plays - userSelectedSlot.getBigPayout();
-			userSelectedSlot.setCurrentSlotBalance(slotsBalance); // updating the slots NEW balance
-			JOptionPane.showMessageDialog(null, "CONGRATULATIONS!  YOU HAVE WON!\n" + userSelectedPlayer.getName() + 
-					" has won " + userSelectedSlot.getLilPayout() 
-					+ "\n Your current balance is: " 
-					+ playersBalance);
+			userSelectedSlot.setCurrentSlotBalance(slotsBalance); // updates slot machines NEW balance
+			System.out.println(userSelectedSlot.getCurrentSlotBalance()); // TESTCODE to verify slot machines new balance has been updated
+			
+			JOptionPane.showMessageDialog(null, "CONGRATULATIONS " + userSelectedPlayer.getName() + "!\nYOU HAVE WON " 
+					+ userSelectedSlot.getLilPayout() + "!!!\nCurrent Balance: " + playersBalance);
+		}
+		else if(plays % userSelectedSlot.getLilWinFrequency() != 0 || plays % userSelectedSlot.getBigWinFrequency() != 0)
+		{
+			playersBalance = userSelectedPlayer.getMoneyBalance() - plays;
+			JOptionPane.showMessageDialog(null, "I'm sorry you have not won anything.\n" + "Your current balance is " + playersBalance );
 		}
 		
 		return plays; // returns plays to keep track of how many plays the selected users has so far (REMEMBER all data is cleared once the user exits the program in any way)

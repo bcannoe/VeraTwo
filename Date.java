@@ -1,6 +1,6 @@
 import javax.swing.JOptionPane;
-public class Date 
-{
+public class Date {
+	
 	private int year;
 	private int month;
 	private int day;
@@ -9,15 +9,16 @@ public class Date
 	
 	public Date() 
 	{
-		
+		setYear(year); // user should be asked for the year they were born FIRST to check whether it is a leap year or not
+		setMonth(month); // then, the user should be asked for the month next because depending on the month, the day they can choose is limited to certain numbers
+		setDay(day);
 	}
 	
 	public Date(int month, int day, int year) 
 	{
-		setYear(year); // user should be asked for the year they were born FIRST to check whether it is a leap year or not
-		setMonth(month); // then, the user should be asked for the month next because depending on the month, the day they can choose is limited to certain numbers
-		setDay(day);
-		
+		this.month = month;
+		this.day = day;
+		this.year = year;
 	}
 	
 // Setters & Getters ====================================================================================================================================================
@@ -84,21 +85,25 @@ public class Date
 
 	public void setYear(int year) 
 	{
-		year = Integer.parseInt(JOptionPane.showInputDialog("Enter year of birth:"));
-		if(year < 1880)
+		boolean invalid = true; // false until true
+		while(invalid)
 		{
-			JOptionPane.showMessageDialog(null, "Invalid Entry"); // oldest age we accept is 138 -- oldest person ever recorded to live was 122
 			year = Integer.parseInt(JOptionPane.showInputDialog("Enter year of birth:"));
+			if(year < 1880)
+			{
+				JOptionPane.showMessageDialog(null, "Invalid Entry"); // oldest age we accept is 138 -- oldest person ever recorded to live was 122
+			}
+			if(year > 2000)
+			{
+				JOptionPane.showMessageDialog(null, "Must be 18+ years old to play"); // assuming the gambling age in this hypothetical is 18+
+			}
+			if(year > 1880 && year < 2000)
+			{
+				invalid = false; // the year is NOW valid	
+			}
 		}
-		if(year > 2000)
-		{
-			JOptionPane.showMessageDialog(null, "Must be 18+ years old to play"); // assuming the gambling age in this hypothetical is 18+
-			// can we exit user out of program from here ??
-			year = Integer.parseInt(JOptionPane.showInputDialog("Enter year of birth:"));
-			
-		}
-			
-			this.year = year;	
+		this.year = year;	
+		
 	}
 	
 // toString method ===================================================================================================================================================

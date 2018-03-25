@@ -1,30 +1,35 @@
 import javax.swing.JOptionPane;
-public class Name 
-{
+public class Name {
+	
 	private String first;
 	private char initial;
 	private String last;
 	
 // Constructors ===========================================================================================================================
-	
+
 	public Name()
-	{
-		// no args constructor
-	}
-	public Name(String first, char initial, String last)
 	{
 		setFirst(first);
 		setInitial(initial);
 		setLast(last);
 	}
 	
+	public Name(String first, char initial, String last)
+	{
+		this.first = first;
+		this.initial = initial;
+		this.last = last;
+	}
+
+
 // Setters & Getters =====================================================================================================================
+	
 	public void setFirst(String first)
 	{
 		first = JOptionPane.showInputDialog("Enter first name");
 		this.first = first;
 	}
-	public String getFirst()
+	public String getFirst() 
 	{
 		return first;
 	}
@@ -55,7 +60,7 @@ public class Name
 	public String toString()
 	{
 		String result;
-		result = first + "" + initial + ". " + last;
+		result = first + " " + initial + " " + last;
 		return result;
 	}
 	
