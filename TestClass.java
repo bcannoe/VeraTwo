@@ -91,8 +91,11 @@ public class TestClass
 				Player selectedPlayer;
 				//'selectPlayer' is called, and playerArray is passed; the a player the user has selected is returned;
 				// selectedPlayer object is created to hold values of the selected player from 'selectPlayer' method
+				
 				selectedPlayer = selectPlayer(playerArray);
 				selectedPlayer = new Player(selectedPlayer.getDob(), selectedPlayer.getName(), selectedPlayer.getMoneyBalance());
+				
+				
 				// Test Code
 				JOptionPane.showMessageDialog(null, "You have selected " + selectedPlayer);
 				
@@ -156,7 +159,7 @@ public class TestClass
 		
 		// User Prompt to enter the name of a player: (only players that have been created will appear)  
 		userChoice = JOptionPane.showInputDialog(null, "Enter a Player from list: "
-				+ "(MUST type in FIRST name of player as is) " + 
+				+ "(MUST type in FIRST or LAST name of player as is *Not Both) " + 
 				"\n======================================================================\n" + menuList);
 		
 		boolean invalid = true;
@@ -177,7 +180,7 @@ public class TestClass
 			 * the loop should finish testing all slot machine names until a matching result is found
 			 */
 			
-				if(playerArray.get(i).getName().getFirst().equalsIgnoreCase(userChoice)) 
+				if(playerArray.get(i).getName().getFirst().equalsIgnoreCase(userChoice) || playerArray.get(i).getName().getLast().equalsIgnoreCase(userChoice)) 
 					// from getName(), getFirst() is invoked because getName() returns an object which
 					// can not be compared with a string (the users input)
 				{
@@ -255,6 +258,7 @@ public class TestClass
 	{
 		double playersBalance = 0; // players money balance within the playSlots method
 		double slotsBalance = 0; // slot machines money balance within the playSlots method
+
 		plays++;
 		
 		/* If the number of times the user has played can be evenly divided into either of the win frequencies,
@@ -265,42 +269,50 @@ public class TestClass
 		{
 			System.out.println("Inside jackpot if statement"); // testcode
 			playersBalance = userSelectedPlayer.getMoneyBalance() - plays + userSelectedSlot.getBigPayout();
-			
+				
 			System.out.println("Inside regular win if statement -- selected user's money balance: " + playersBalance); //testcode
 			userSelectedPlayer.setMoneyBalance(playersBalance); // updates players NEW balance
 			System.out.println(userSelectedPlayer.getMoneyBalance()); // TESTCODE to verify users new balance has been updated
-			
+				
 			slotsBalance = userSelectedSlot.getCurrentSlotBalance() + plays - userSelectedSlot.getBigPayout();
 			userSelectedSlot.setCurrentSlotBalance(slotsBalance); // updates slot machines NEW balance
 			System.out.println(userSelectedSlot.getCurrentSlotBalance()); // TESTCODE to verify slot machines new balance has been updated
-			
+				
 			JOptionPane.showMessageDialog(null, "CONGRATULATIONS! " + userSelectedPlayer.getName() + "\nYOU HAVE HIT THE JACKPOT AND WON " 
 					+ userSelectedSlot.getBigPayout()  + "!!!\nCurrent Balance: " + playersBalance);
-	
+		
 		}
 		if(plays % userSelectedSlot.getLilWinFrequency() == 0)
 		{
-			System.out.println("selected slot's lil payout: " + userSelectedSlot.getLilPayout()); //testcode
-			playersBalance = userSelectedPlayer.getMoneyBalance() - plays + userSelectedSlot.getLilPayout(); 
-			
-			System.out.println("Selected user's money balance: " + playersBalance); //testcode
-			userSelectedPlayer.setMoneyBalance(playersBalance); // updates players NEW balance
-			System.out.println(userSelectedPlayer.getMoneyBalance()); // TESTCODE to verify users new balance has been updated
-			
-			slotsBalance = userSelectedSlot.getCurrentSlotBalance() + plays - userSelectedSlot.getBigPayout();
-			userSelectedSlot.setCurrentSlotBalance(slotsBalance); // updates slot machines NEW balance
-			System.out.println(userSelectedSlot.getCurrentSlotBalance()); // TESTCODE to verify slot machines new balance has been updated
-			
-			JOptionPane.showMessageDialog(null, "CONGRATULATIONS " + userSelectedPlayer.getName() + "!\nYOU HAVE WON " 
-					+ userSelectedSlot.getLilPayout() + "!!!\nCurrent Balance: " + playersBalance);
+			if((plays % userSelectedSlot.getLilWinFrequency() == 0) && plays % userSelectedSlot.getBigWinFrequency() != 0) {// This prevents lilWin from overlapping with bigWin
+				System.out.println("selected slot's lil payout: " + userSelectedSlot.getLilPayout()); //testcode
+				playersBalance = userSelectedPlayer.getMoneyBalance() - plays + userSelectedSlot.getLilPayout(); 
+				
+				System.out.println("Selected user's money balance: " + playersBalance); //testcode
+				userSelectedPlayer.setMoneyBalance(playersBalance); // updates players NEW balance
+				System.out.println(userSelectedPlayer.getMoneyBalance()); // TESTCODE to verify users new balance has been updated
+				
+				slotsBalance = userSelectedSlot.getCurrentSlotBalance() + plays - userSelectedSlot.getBigPayout();
+				userSelectedSlot.setCurrentSlotBalance(slotsBalance); // updates slot machines NEW balance
+				System.out.println(userSelectedSlot.getCurrentSlotBalance()); // TESTCODE to verify slot machines new balance has been updated
+				
+				JOptionPane.showMessageDialog(null, "CONGRATULATIONS " + userSelectedPlayer.getName() + "!\nYOU HAVE WON " 
+						+ userSelectedSlot.getLilPayout() + "!!!\nCurrent Balance: " + playersBalance);
+			} else {
+					
+			}
 		}
-		else if(plays % userSelectedSlot.getLilWinFrequency() != 0 || plays % userSelectedSlot.getBigWinFrequency() != 0)
+		else if(plays % userSelectedSlot.getLilWinFrequency() != 0 && plays % userSelectedSlot.getBigWinFrequency() != 0)
 		{
-			playersBalance = userSelectedPlayer.getMoneyBalance() - plays;
-			JOptionPane.showMessageDialog(null, "I'm sorry you have not won anything.\n" + "Your current balance is " + playersBalance );
-		}
+			    
+				playersBalance = userSelectedPlayer.getMoneyBalance() - plays;
+			}
 		
-		return plays; // returns plays to keep track of how many plays the selected users has so far (REMEMBER all data is cleared once the user exits the program in any way)
+				
+			JOptionPane.showMessageDialog(null, "I'm sorry you have not won anything.\n" + "Your current balance is " + playersBalance );
+		
+		
+	return plays; // returns plays to keep track of how many plays the selected users has so far (REMEMBER all data is cleared once the user exits the program in any way)
 	}
 	
 } // end of main class
