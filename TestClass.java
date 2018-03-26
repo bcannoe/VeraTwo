@@ -268,13 +268,13 @@ public class TestClass
 		if(plays % userSelectedSlot.getBigWinFrequency() == 0)
 		{
 			System.out.println("Inside jackpot if statement"); // testcode
-			playersBalance = userSelectedPlayer.getMoneyBalance() - plays + userSelectedSlot.getBigPayout();
+			playersBalance = userSelectedPlayer.getMoneyBalance() - 1 + userSelectedSlot.getBigPayout();
 				
 			System.out.println("Inside regular win if statement -- selected user's money balance: " + playersBalance); //testcode
 			userSelectedPlayer.setMoneyBalance(playersBalance); // updates players NEW balance
 			System.out.println(userSelectedPlayer.getMoneyBalance()); // TESTCODE to verify users new balance has been updated
 				
-			slotsBalance = userSelectedSlot.getCurrentSlotBalance() + plays - userSelectedSlot.getBigPayout();
+			slotsBalance = userSelectedSlot.getCurrentSlotBalance() + 1 - userSelectedSlot.getBigPayout();
 			userSelectedSlot.setCurrentSlotBalance(slotsBalance); // updates slot machines NEW balance
 			System.out.println(userSelectedSlot.getCurrentSlotBalance()); // TESTCODE to verify slot machines new balance has been updated
 				
@@ -286,13 +286,13 @@ public class TestClass
 		{
 			if((plays % userSelectedSlot.getLilWinFrequency() == 0) && plays % userSelectedSlot.getBigWinFrequency() != 0) {// This prevents lilWin from overlapping with bigWin
 				System.out.println("selected slot's lil payout: " + userSelectedSlot.getLilPayout()); //testcode
-				playersBalance = userSelectedPlayer.getMoneyBalance() - plays + userSelectedSlot.getLilPayout(); 
+				playersBalance = userSelectedPlayer.getMoneyBalance() - 1 + userSelectedSlot.getLilPayout(); 
 				
 				System.out.println("Selected user's money balance: " + playersBalance); //testcode
 				userSelectedPlayer.setMoneyBalance(playersBalance); // updates players NEW balance
 				System.out.println(userSelectedPlayer.getMoneyBalance()); // TESTCODE to verify users new balance has been updated
 				
-				slotsBalance = userSelectedSlot.getCurrentSlotBalance() + plays - userSelectedSlot.getBigPayout();
+				slotsBalance = userSelectedSlot.getCurrentSlotBalance() + 1 - userSelectedSlot.getBigPayout();
 				userSelectedSlot.setCurrentSlotBalance(slotsBalance); // updates slot machines NEW balance
 				System.out.println(userSelectedSlot.getCurrentSlotBalance()); // TESTCODE to verify slot machines new balance has been updated
 				
@@ -302,15 +302,13 @@ public class TestClass
 		}
 		if(plays % userSelectedSlot.getLilWinFrequency() != 0 && plays % userSelectedSlot.getBigWinFrequency() != 0)
 		{
-			    
-				playersBalance = userSelectedPlayer.getMoneyBalance() - plays;
-			}
-		
-				
+		    playersBalance = userSelectedPlayer.getMoneyBalance();// calling most recent players balance
+		    playersBalance -= 1;
+			userSelectedPlayer.setMoneyBalance(playersBalance);
 			JOptionPane.showMessageDialog(null, "I'm sorry you have not won anything.\n" + "Your current balance is " + playersBalance );
+		}
 		
-		
-	return plays; // returns plays to keep track of how many plays the selected users has so far (REMEMBER all data is cleared once the user exits the program in any way)
+		return plays; // returns plays to keep track of how many plays the selected users has so far (REMEMBER all data is cleared once the user exits the program in any way)
 	}
 	
 } // end of main class
