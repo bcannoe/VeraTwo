@@ -298,11 +298,9 @@ public class TestClass
 				
 				JOptionPane.showMessageDialog(null, "CONGRATULATIONS " + userSelectedPlayer.getName() + "!\nYOU HAVE WON " 
 						+ userSelectedSlot.getLilPayout() + "!!!\nCurrent Balance: " + playersBalance);
-			} else {
-					
-			}
+			} 
 		}
-		else if(plays % userSelectedSlot.getLilWinFrequency() != 0 && plays % userSelectedSlot.getBigWinFrequency() != 0)
+		if(plays % userSelectedSlot.getLilWinFrequency() != 0 && plays % userSelectedSlot.getBigWinFrequency() != 0)
 		{
 			    
 				playersBalance = userSelectedPlayer.getMoneyBalance() - plays;
